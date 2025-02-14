@@ -19,6 +19,7 @@ const TravelListCard = ({ viaggio }) => {
       </div>
     </Link>
 
+
   )
 }
 

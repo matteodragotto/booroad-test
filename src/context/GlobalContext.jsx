@@ -5,18 +5,10 @@ const GlobalContext = createContext()
 
 const GlobalProvider = ({ children }) => {
 
-
-
-
-
-
-
-
-
-  const value = {}
+  const [travelData, setTravelData] = useState(viaggi)
 
   return (
-    <GlobalContext.Provider value={value}>
+    <GlobalContext.Provider value={{ travelData, setTravelData }}>
       {children}
     </GlobalContext.Provider>
 
@@ -24,7 +16,7 @@ const GlobalProvider = ({ children }) => {
 }
 
 const useGlobalContext = () => {
-  useContext(GlobalContext)
+  return useContext(GlobalContext)
 }
 
 export { useGlobalContext, GlobalProvider }
