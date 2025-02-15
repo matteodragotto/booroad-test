@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom"
-import { useEffect } from "react"
-import viaggi from "../../data/db"
+import { useEffect, useState } from "react"
 import { useGlobalContext } from "../context/GlobalContext"
+import SearchTravelDetail from "../components/SearchTravelDetail"
 
 import TravelDetailCard from "../components/TravelDetailCard"
 import PartecipantsList from "../components/PartecipantsList"
@@ -10,20 +10,22 @@ import NewPartecipant from "../components/NewPartecipant"
 const TravelDetail = () => {
 
   const { id } = useParams()
-  const { travelData } = useGlobalContext()
+  const { originalTravelDetail, setOriginalTravelDetail, fetchTravel } = useGlobalContext()
 
-  const dettaglioViaggio = travelData.find(viaggio => viaggio.id_viaggio == id)
+  useEffect(() => {
+    if (id) {
+      const selectedTravel = fetchTravel(id)
+      setOriginalTravelDetail(selectedTravel)
+    }
+  }, [id])
 
   return (
     <div className="container my-5">
-      <TravelDetailCard dettaglioViaggio={dettaglioViaggio} />
-
+      <TravelDetailCard />
       <h3 className="mb-3 text-center">Elenco partecipanti</h3>
-
-      <PartecipantsList dettaglioViaggio={dettaglioViaggio} />
-
-      <NewPartecipant travelId={id} />
-
+      <SearchTravelDetail />
+      <PartecipantsList />
+      <NewPartecipant />
     </div>
 
   )

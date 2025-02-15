@@ -1,7 +1,7 @@
 import { useState } from "react";
 import FormPartecipants from "./FormPartecipants";
 
-const NewTravel = ({ travelId }) => {
+const NewTravel = () => {
   const [showModal, setShowModal] = useState(false);
 
   const handleClose = () => setShowModal(false);
@@ -40,7 +40,7 @@ const NewTravel = ({ travelId }) => {
                 ></button>
               </div>
               <div className="modal-body">
-                <FormPartecipants travelId={travelId} />
+                <FormPartecipants />
               </div>
             </div>
           </div>

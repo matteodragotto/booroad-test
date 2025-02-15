@@ -1,13 +1,13 @@
 import { useState } from "react"
 import { useGlobalContext } from "../context/GlobalContext"
 
-const FormPartecipants = ({ travelId }) => {
-  const { travelData, setTravelData } = useGlobalContext()
+const FormPartecipants = () => {
+  const { originalTravelDetail, setOriginalTravelDetail } = useGlobalContext()
 
-  const dettaglioViaggio = travelData.find(viaggio => viaggio.id_viaggio == travelId)
+  const randomId = Date.now()
 
   const initialFormData = {
-    id_partecipante: self.crypto.randomUUID(),
+    id_partecipante: randomId,
     nome: '',
     cognome: '',
     telefono: '',
@@ -19,39 +19,30 @@ const FormPartecipants = ({ travelId }) => {
 
   const handleNewPartecipant = () => {
 
-    return [...dettaglioViaggio.partecipanti, formData]
+    return [...originalTravelDetail.partecipanti, formData]
   }
 
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
-
-    if (dettaglioViaggio) {
+    if (originalTravelDetail) {
 
       const updatedPartecipanti = handleNewPartecipant()
+      const updatedTravelData = { ...originalTravelDetail, partecipanti: updatedPartecipanti }
 
-      const updatedTravelData = travelData.map(viaggio =>
-        viaggio.id_viaggio == travelId
-          ? { ...viaggio, partecipanti: updatedPartecipanti }
-          : viaggio
-      )
-
-
-      setTravelData(updatedTravelData)
-
-
+      setOriginalTravelDetail(updatedTravelData)
       setFormData(initialFormData)
     } else {
       alert('Non è stato possibile aggiungere il nuovo partecipante')
     }
   }
 
-
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
   }
+
 
   return (
     <form onSubmit={handleSubmit}>

@@ -22,16 +22,12 @@ const FormTravels = () => {
   const [formData, setFormData] = useState(initialFormData)
 
   const handleNewTravel = () => {
-
     return [...travelData, formData]
   }
 
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
-    console.log(travelData);
-
 
     if (travelData) {
 
