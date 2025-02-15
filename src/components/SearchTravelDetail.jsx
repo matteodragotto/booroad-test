@@ -2,15 +2,19 @@ import { useGlobalContext } from "../context/GlobalContext";
 import { useState, useEffect } from "react";
 
 const SearchTravelDetail = () => {
-  const { originalTravelDetail, setOriginalTravelDetail, initialPartecipants, setInitialPartecipants } = useGlobalContext();
+  const { originalTravelDetail, initialPartecipants, setInitialPartecipants } = useGlobalContext();
 
   const [searchData, setSearchData] = useState('');
+
 
   useEffect(() => {
     if (originalTravelDetail?.partecipanti) {
       setInitialPartecipants(originalTravelDetail.partecipanti);
     }
   }, [originalTravelDetail, setInitialPartecipants]);
+
+  console.log(initialPartecipants);
+
 
   const handleChange = (e) => {
     setSearchData(e.target.value);
@@ -21,17 +25,11 @@ const SearchTravelDetail = () => {
       return;
     }
 
-    const filteredTravelData = originalTravelDetail.partecipanti.filter(partecipante => partecipante?.nome.toLowerCase().includes(searchData.toLowerCase()));
+    const filteredTravelData = initialPartecipants.filter(partecipante => partecipante?.nome.toLowerCase().includes(searchData.toLowerCase()));
     if (searchData.length > 0) {
-      setOriginalTravelDetail(prevDetail => ({
-        ...prevDetail,
-        partecipanti: filteredTravelData
-      }));
+      setInitialPartecipants(filteredTravelData);
     } else {
-      setOriginalTravelDetail(prevDetail => ({
-        ...prevDetail,
-        partecipanti: initialPartecipants
-      }));
+      setInitialPartecipants(originalTravelDetail.partecipanti);
     }
   };
 
@@ -40,7 +38,7 @@ const SearchTravelDetail = () => {
   }, [searchData]);
 
   return (
-    <div>
+    <div className="mb-3 container w-50">
       <form className="d-flex" role="search">
         <input
           className="form-control me-2"

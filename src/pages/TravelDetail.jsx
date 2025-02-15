@@ -10,7 +10,7 @@ import NewPartecipant from "../components/NewPartecipant"
 const TravelDetail = () => {
 
   const { id } = useParams()
-  const { originalTravelDetail, setOriginalTravelDetail, fetchTravel } = useGlobalContext()
+  const { setOriginalTravelDetail, fetchTravel } = useGlobalContext()
 
   useEffect(() => {
     if (id) {

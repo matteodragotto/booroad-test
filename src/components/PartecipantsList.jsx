@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useGlobalContext } from "../context/GlobalContext";
 
 const PartecipantsList = () => {
-  const { originalTravelDetail } = useGlobalContext()
+  const { initialPartecipants } = useGlobalContext()
   const [isOpen, setIsOpen] = useState(null)
 
   const openAccordion = (idPartecipante) => {
@@ -11,8 +11,8 @@ const PartecipantsList = () => {
 
   return (
     <div className="accordion" id="accordionExample">
-      {Array.isArray(originalTravelDetail.partecipanti) && originalTravelDetail.partecipanti.length > 0 ? (
-        originalTravelDetail?.partecipanti.map(partecipante => (
+      {Array.isArray(initialPartecipants) && initialPartecipants.length > 0 ? (
+        initialPartecipants.map(partecipante => (
           <div key={partecipante.id_partecipante} className="accordion-item">
             <h2 className="accordion-header">
               <button className={`accordion-button ${isOpen == partecipante.id_partecipante ? '' : 'collapsed'}`} type="button" onClick={() => openAccordion(partecipante.id_partecipante)} aria-expanded={isOpen == partecipante.id_partecipante ? 'true' : 'false'} aria-controls="collapseOne">
