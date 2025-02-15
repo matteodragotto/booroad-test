@@ -23,6 +23,7 @@ const GlobalProvider = ({ children }) => {
   const [travelData, setTravelData] = useState(viaggi)
   const [originalTravelDetail, setOriginalTravelDetail] = useState(travelForm)
   const [initialPartecipants, setInitialPartecipants] = useState(originalTravelDetail.partecipanti)
+  const [error, setError] = useState('')
 
   const fetchTravel = (id) => {
     return travelData.find(viaggio => viaggio.id_viaggio == id)
@@ -35,7 +36,9 @@ const GlobalProvider = ({ children }) => {
     setOriginalTravelDetail,
     fetchTravel,
     initialPartecipants,
-    setInitialPartecipants
+    setInitialPartecipants,
+    error,
+    setError
   }
 
   return (

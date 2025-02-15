@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useGlobalContext } from "../context/GlobalContext"
 
 const FormPartecipants = () => {
-  const { originalTravelDetail, setOriginalTravelDetail } = useGlobalContext()
+  const { originalTravelDetail, setOriginalTravelDetail, error, setError } = useGlobalContext()
 
   const randomId = Date.now()
 
@@ -22,9 +22,19 @@ const FormPartecipants = () => {
     return [...originalTravelDetail.partecipanti, formData]
   }
 
+  const validate = () => {
+    if (!formData.nome || !formData.cognome || !formData.telefono || !formData.email || !formData.codice_fiscale) return false
+    return true
+  }
+
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    if (!validate()) {
+      setError('Controlla bene i dati, potrebbe esserci qualche errore, ricordati i dati sono obbligatori')
+      return
+    }
 
     if (originalTravelDetail) {
 
@@ -46,6 +56,7 @@ const FormPartecipants = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+      <p className="text-danger">{error}</p>
       <div className="mb-3">
         <label>Nome</label>
         <input
